@@ -45,6 +45,26 @@ func New(
 	}
 }
 
+func (f *Fetcher) Start(ctx context.Context) error {
+	ticker := time.NewTicker(f.fetchInterval)
+	defer ticker.Stop()
+
+	if err := f.Fetch(ctx); err != nil {
+		return err
+	}
+
+	for {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-ticker.C:
+			if err := f.Fetch(ctx); err != nil {
+				return err
+			}
+		}
+	}
+}
+
 func (f *Fetcher) Fetch(ctx context.Context) error {
 	sources, err := f.sources.Sources(ctx)
 	if err != nil {

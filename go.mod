@@ -4,6 +4,7 @@ go 1.23.0
 
 require (
 	github.com/SlyMarbo/rss v1.0.5
+	github.com/jmoiron/sqlx v1.4.0
 	github.com/samber/lo v1.47.0
 )
 

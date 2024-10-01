@@ -22,6 +22,14 @@ func NewRSSSourceFromModel(m model.Source) RSSSource {
 	}
 }
 
+func (r RSSSource) ID() int64 {
+	return r.SourceID
+}
+
+func (r RSSSource) Name() string {
+	return r.SourceName
+}
+
 func (r RSSSource) Fetch(ctx context.Context) ([]model.Item, error) {
 	feed, err := r.loadFeed(ctx, r.URL)
 	if err != nil {

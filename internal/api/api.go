@@ -49,9 +49,6 @@ func (a *API) Run() error {
 		return errors.New(fmt.Sprintf("[ERROR] failed to ping database: %v", err))
 	}
 
-	newsBot := botkit.New(botApi)
-	newsBot.RegisterCmdView("start", bot.ViewCmdStart())
-
 	var (
 		articleStorage = storage.NewArticleStorage(db)
 		sourceStorage  = storage.NewSourceStorage(db)
@@ -70,6 +67,11 @@ func (a *API) Run() error {
 			config.Get().TelegramChannelID,
 		)
 	)
+
+	newsBot := botkit.New(botApi)
+	newsBot.RegisterCmdView("start", bot.ViewCmdStart())
+	newsBot.RegisterCmdView("addsource", bot.ViewCmdAddSource(sourceStorage))
+	newsBot.RegisterCmdView("listsource", bot.ViewCmdListSource(sourceStorage))
 
 	ctx, cancel := signal.NotifyContext(a.ctx, os.Interrupt, syscall.SIGTERM)
 	defer cancel()

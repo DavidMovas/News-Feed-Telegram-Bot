@@ -13,7 +13,7 @@ type ArticlePostgresStorage struct {
 	db *sqlx.DB
 }
 
-func NewArticlePostgresStorage(db *sqlx.DB) *ArticlePostgresStorage {
+func NewArticleStorage(db *sqlx.DB) *ArticlePostgresStorage {
 	return &ArticlePostgresStorage{db: db}
 }
 
@@ -37,6 +37,8 @@ func (s *ArticlePostgresStorage) Store(ctx context.Context, article model.Articl
 	); err != nil {
 		return err
 	}
+
+	return nil
 }
 
 func (s *ArticlePostgresStorage) AllNotPosted(ctx context.Context, since time.Time, limit uint64) ([]model.Article, error) {
@@ -77,6 +79,8 @@ func (s *ArticlePostgresStorage) MarkPosted(ctx context.Context, id int64) error
 	); err != nil {
 		return err
 	}
+
+	return nil
 }
 
 type dbArticle struct {

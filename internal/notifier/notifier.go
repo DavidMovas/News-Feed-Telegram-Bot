@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
-	"telbot/internal/bootkit"
+	"telbot/internal/botkit"
 	"telbot/internal/model"
 	"time"
 
@@ -82,7 +82,6 @@ func (n *Notifier) SelectAndSendArticles(ctx context.Context) error {
 	}
 
 	article := topOneArticles[0]
-	//TODO: Add logic
 	summary, err := n.extractSummary(ctx, article)
 	if err != nil {
 		return err
@@ -129,9 +128,9 @@ func (n *Notifier) sendArticle(article model.Article, summary string) error {
 
 	msg := tgbotapi.NewMessage(n.channelID, fmt.Sprintf(
 		msgFormat,
-		bootkit.EscapeForMarkdown(article.Title),
-		bootkit.EscapeForMarkdown(summary),
-		bootkit.EscapeForMarkdown(article.Link),
+		botkit.EscapeForMarkdown(article.Title),
+		botkit.EscapeForMarkdown(summary),
+		botkit.EscapeForMarkdown(article.Link),
 	))
 	msg.ParseMode = tgbotapi.ModeMarkdownV2
 

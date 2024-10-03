@@ -100,7 +100,6 @@ func (f *Fetcher) Fetch(ctx context.Context) error {
 }
 
 func (f *Fetcher) processItems(ctx context.Context, source Source, items []model.Item) error {
-
 	for _, item := range items {
 		item.Date = item.Date.UTC()
 

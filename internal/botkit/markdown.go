@@ -1,4 +1,4 @@
-package bootkit
+package botkit
 
 import "strings"
 

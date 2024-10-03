@@ -19,6 +19,7 @@ require (
 	github.com/go-shiori/go-readability v0.0.0-20240923125239-59a7bd165825 // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/lib/pq v1.10.9 // indirect
 	github.com/sashabaranov/go-openai v1.31.0 // indirect
 	golang.org/x/net v0.29.0 // indirect
 	golang.org/x/text v0.18.0 // indirect

@@ -14,6 +14,7 @@ type dbSource struct {
 	Name      string    `db:"name"`
 	FeedURL   string    `db:"feed_url"`
 	CreatedAt time.Time `db:"created_at"`
+	UpdatedAt time.Time `db:"updated_at"`
 }
 
 type SourcePostgresStorage struct {
@@ -32,6 +33,7 @@ func (s *SourcePostgresStorage) Sources(ctx context.Context) ([]model.Source, er
 	defer conn.Close()
 
 	var sources []dbSource
+
 	if err := conn.SelectContext(ctx, &sources, `SELECT * FROM sources`); err != nil {
 		return nil, err
 	}

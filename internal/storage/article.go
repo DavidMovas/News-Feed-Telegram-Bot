@@ -26,13 +26,11 @@ func (s *ArticlePostgresStorage) Store(ctx context.Context, article model.Articl
 
 	if _, err := conn.ExecContext(
 		ctx,
-		`INSERT INTO articles (source_id, title, link, summary, published_at)
-		VALUES ($1, $2, $3, $4, $5)
-		ON CONFLICT DO NOTHING`,
+		`INSERT INTO articles (source_id, title, link, published_at)
+		VALUES ($1, $2, $3, $4)`,
 		article.SourceID,
 		article.Title,
 		article.Link,
-		article.Summary,
 		article.PublishedAt,
 	); err != nil {
 		return err
@@ -52,7 +50,7 @@ func (s *ArticlePostgresStorage) AllNotPosted(ctx context.Context, since time.Ti
 	if err := conn.SelectContext(
 		ctx,
 		&articles,
-		`SELECT * FROM articles WHERE posted_at IS NOT NULL AND published_at >= $1::timestamp ORDER BY published_at LIMIT $2`,
+		`SELECT * FROM articles WHERE posted_at IS NULL AND published_at >= $1::timestamp ORDER BY published_at LIMIT $2`,
 		since.UTC().Format(time.RFC3339),
 		limit,
 	); err != nil {
